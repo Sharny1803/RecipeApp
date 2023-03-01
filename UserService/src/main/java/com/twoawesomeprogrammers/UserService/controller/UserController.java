@@ -1,43 +1,50 @@
 package com.twoawesomeprogrammers.UserService.controller;
 
+import com.twoawesomeprogrammers.UserService.dto.UserDto;
 import com.twoawesomeprogrammers.UserService.model.User;
-import com.twoawesomeprogrammers.UserService.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.twoawesomeprogrammers.UserService.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/user")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> findAllUsers() {
-        return userRepository.findAll();
+        return userService.findAllUsers();
+    }
+
+    @GetMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<User> findUserById(@PathVariable String id) {
+        return userService.findUserById(id);
     }
 
     @PostMapping("/user/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(@RequestBody User user) {
-        User user1 = User.builder()
-                .name(user.getName())
-                .password(user.getPassword())
-                .userName(user.getUserName())
-                .about(user.getAbout())
-                .photoUrl(user.getPhotoUrl())
-                .instagramUrl(user.getInstagramUrl())
-                .facebookUrl(user.getFacebookUrl())
-                .twitterUrl(user.getTwitterUrl())
-                .location(user.getLocation())
-                .joinDate(user.getJoinDate())
-                .recipes(user.getRecipes())
-                .following(user.getFollowing())
-                .followers(user.getFollowers())
-                .build();
-        return userRepository.save(user);
+    public void createUser(@RequestBody UserDto userDto) {
+        userService.createUser(userDto);
+    }
+
+    @DeleteMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUserById(@PathVariable String id) {
+        userService.deleteUserById(id);
+    }
+
+    @PutMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User updateUser(@PathVariable String id,
+                           @RequestBody User user) {
+        return userService.updateUser(id, user);
     }
 }

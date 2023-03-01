@@ -1,22 +1,17 @@
-package com.twoawesomeprogrammers.UserService.model;
+package com.twoawesomeprogrammers.UserService.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
-@Document(collection = "Users")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    @Id
-    private String id;
+public class UserDto {
     private String userName;
     private String password;
     private String name;
@@ -31,3 +26,4 @@ public class User {
     private int following;
     private int followers;
 }
+
