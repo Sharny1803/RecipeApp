@@ -12,39 +12,40 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/user")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<User> findAllUsers() {
         return userService.findAllUsers();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<User> findUserById(@PathVariable String id) {
         return userService.findUserById(id);
     }
 
-    @PostMapping("/user/create")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody UserDto userDto) {
         userService.createUser(userDto);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUserById(@PathVariable String id) {
         userService.deleteUserById(id);
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User updateUser(@PathVariable String id,
                            @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 }
+

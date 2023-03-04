@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserDto {
     private String userName;
-    private String password;
     private String name;
     private String about;
     private String photoUrl;

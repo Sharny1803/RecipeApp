@@ -24,7 +24,6 @@ public class UserService {
     public void createUser(@RequestBody UserDto userDto) {
         User user = User.builder()
                 .name(userDto.getName())
-                .password(userDto.getPassword())
                 .userName(userDto.getUserName())
                 .about(userDto.getAbout())
                 .photoUrl(userDto.getPhotoUrl())
@@ -53,7 +52,6 @@ public class UserService {
         return userRepository.findById(id)
                 .map(user -> {
                     user.setName(newUser.getName());
-                    user.setPassword(newUser.getPassword());
                     user.setUserName(newUser.getUserName());
                     user.setAbout(newUser.getAbout());
                     user.setPhotoUrl(newUser.getPhotoUrl());
