@@ -1,13 +1,11 @@
-package com.twoawesomeprogrammers.recipeservice;
+package com.twoawesomeprogrammers.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RecipeServiceApplication {
-
+public class ApiGatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RecipeServiceApplication.class, args);
+        SpringApplication.run(ApiGatewayApplication.class, args);
     }
-
 }
