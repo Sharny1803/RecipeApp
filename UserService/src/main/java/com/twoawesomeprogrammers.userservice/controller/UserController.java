@@ -38,8 +38,8 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public User deleteUserById(@PathVariable String id) {
-        return userService.deleteUserById(id);
+    public void deleteUserById(@PathVariable String id) {
+         userService.deleteUserById(id);
     }
 
     @PutMapping("/{id}")

@@ -74,8 +74,9 @@ class UserServiceApplicationTests {
 
     private User getUser() {
         return User.builder()
-                .userName("test")
+                .email("test")
                 .name("test")
+                .userName("test")
                 .about("test")
                 .photoUrl("test")
                 .instagramUrl("test")
@@ -156,8 +157,10 @@ class UserServiceApplicationTests {
 
         User updatedUser = new User(
                 "testId",
-                "updatedTestUserName",
+                "updatedTestEmail",
+                "updatedTestPassword",
                 "updatedTestName",
+                "updatedTestUserName",
                 "updatedTestAbout",
                 "updatedTestUrl",
                 "updatedTestUrl",
@@ -172,8 +175,10 @@ class UserServiceApplicationTests {
 
         User user = new User(
                 "testId",
-                "testUserName",
+                "testEmail",
+                "testPassword",
                 "testName",
+                "testUserName",
                 "testAbout",
                 "testUrl",
                 "testUrl",
@@ -189,8 +194,9 @@ class UserServiceApplicationTests {
 
         userRepository.findById(user.getId())
                 .map(user1 -> {
-                    user.setUserName(updatedUser.getUserName());
+                    user.setEmail(updatedUser.getEmail());
                     user.setName(updatedUser.getName());
+                    user.setUserName(updatedUser.getUserName());
                     user.setAbout(updatedUser.getAbout());
                     user.setPhotoUrl(updatedUser.getPhotoUrl());
                     user.setInstagramUrl(updatedUser.getInstagramUrl());
@@ -223,8 +229,10 @@ class UserServiceApplicationTests {
     void shouldDeleteUser() throws Exception {
         User user = new User(
                 "testId",
-                "testUserName",
+                "testEmail",
+                "testPassword",
                 "testName",
+                "testUserName",
                 "testAbout",
                 "testUrl",
                 "testUrl",

@@ -9,9 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,11 +21,14 @@ public class UserService {
 
 
     public List<User> findAllUsers() {
+        log.info("{} users found.", userRepository.count());
         return userRepository.findAll();
     }
 
     public void createUser(@RequestBody UserDto userDto) {
         User user = User.builder()
+                .email(userDto.getEmail())
+//                .password(userDto.getPassword())
                 .name(userDto.getName())
                 .userName(userDto.getUserName())
                 .about(userDto.getAbout())
@@ -40,16 +43,27 @@ public class UserService {
                 .followers(userDto.getFollowers())
                 .build();
         userRepository.save(user);
-        log.info("User {} is saved", user.getId());
+        log.info("User {} is created", user.getUserName());
     }
 
     public Optional<User> findUserById(String id) {
-        return userRepository.findById(id);
+        if (userRepository.existsById(id)) {
+            log.info("User with id {} is found.", id);
+            return userRepository.findById(id);
+        } else {
+            log.info("User with id {} is not found.", id);
+            return Optional.empty();
+        }
     }
 
-    public User deleteUserById(String id) {
-        userRepository.deleteById(id);
-        return null;
+    public void deleteUserById(String id) {
+        if (userRepository.existsById(id)) {
+            String user = userRepository.findById(id).get().getUserName();
+            log.info(("User {} was deleted."), user);
+            userRepository.deleteById(id);
+        } else {
+            log.info("User with id {} was not found.", id);
+        }
     }
 
     public User updateUser(String id, User newUser) {
@@ -67,10 +81,12 @@ public class UserService {
                     user.setRecipes(newUser.getRecipes());
                     user.setFollowing(newUser.getFollowing());
                     user.setFollowers(newUser.getFollowers());
+                    log.info("User {} was updated", user.getUserName());
                     return userRepository.save(user);
                 })
                 .orElseGet(() -> {
                     newUser.setId(id);
+                    log.info("User {} was created", newUser.getUserName());
                     return userRepository.save(newUser);
                 });
     }

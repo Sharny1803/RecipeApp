@@ -12,8 +12,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private String userName;
+
+    private String email;
+//    private String password;
     private String name;
+    private String userName;
     private String about;
     private String photoUrl;
     private String instagramUrl;
@@ -24,5 +27,6 @@ public class UserDto {
     private int recipes;
     private int following;
     private int followers;
+
 }
 
